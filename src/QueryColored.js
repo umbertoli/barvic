@@ -10,7 +10,7 @@ const QueryColored = ({ query, article }) => {
             const output = highlight(query, article);
             res = <div>
                     <div className="success-pattern mb4 athelas ml0 mt0 pl4 black-90 bl bw2 b--blue">
-                        Shoda: {Object.keys(output.successPatterns).join(' ')}
+                        Shoda: {Object.keys(output.successPatterns).join(', ').replaceAll('[\\w]', '')}
                     </div>
                     {output.result}
                 </div>;

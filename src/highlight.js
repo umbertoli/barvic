@@ -6,8 +6,9 @@ export function highlight(queryString, article) {
         const group = queryGroups[i];
         coloredGroups.map(item => {
             for (let pattern of group) {
-                const re = new RegExp(pattern, "i");
-                if (re.test(item.word)) {
+                const re = new RegExp('^'+pattern+'$', "i");
+                let cleanedWord = item.word.replaceAll(/[.,:"'!?;-]/g, '');
+                if (re.test(cleanedWord)) {
                     item.groups.push(i);
                     successPatterns[pattern] = true;
                 }
@@ -41,10 +42,25 @@ function queryParser(query) {
     }
     clearedGroups = clearedGroups.filter(item => item !== '');
 
-    console.log(parenthesisDivided);
-    console.log(clearedGroups);
+    clearedGroups = clearedGroups.map(splitMultiWordStringsToArray);
+
+    // console.log(parenthesisDivided);
+    // console.log(clearedGroups);
 
     return clearedGroups;
+}
+
+function splitMultiWordStringsToArray(arr) {
+    let result = [];
+    console.log(arr);
+    for(let word of arr) {
+        console.log(word);
+        if(typeof word === 'string' && word !== '') {
+            result.push(...word.split(' '));
+        }
+    }
+    // console.log(result);
+    return result;
 }
 
 function splitQueryByBrackets(query) {
@@ -114,7 +130,8 @@ function clearQuery(query) {
 
 
     tmpQuery = tmpQuery.replaceAll('?', '.');
-    tmpQuery = tmpQuery.replaceAll('*', '');
+    // tmpQuery = tmpQuery.replaceAll('*', '[^a-z]*'); 
+    tmpQuery = tmpQuery.replaceAll('*', '[\\w]*');
     tmpQuery = tmpQuery.replaceAll('~\d', '');
     return tmpQuery;
 }

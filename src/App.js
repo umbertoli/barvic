@@ -12,7 +12,7 @@ function App() {
   return (
     <div>
       <article className="pa3 pa5-ns">
-        <h1 className="f3 f2-m f1-l">Obarvovač</h1>
+        <h1 className="f3 f2-m f1-l">Barvič</h1>
         <QueryInput setQueryCallback={setQuery}/>
         <ArticelInput setQueryCallback={setArticle} />
         <QueryColored query={query} article={article}/>
