@@ -45,7 +45,7 @@ function queryParser(query) {
     clearedGroups = clearedGroups.map(splitMultiWordStringsToArray);
 
     // console.log(parenthesisDivided);
-    // console.log(clearedGroups);
+    console.log(clearedGroups);
 
     return clearedGroups;
 }
@@ -131,7 +131,7 @@ function clearQuery(query) {
 
     tmpQuery = tmpQuery.replaceAll('?', '.');
     // tmpQuery = tmpQuery.replaceAll('*', '[^a-z]*'); 
-    tmpQuery = tmpQuery.replaceAll('*', '[\\w]*');
+    tmpQuery = tmpQuery.replaceAll('*', '[\\S]*');
     tmpQuery = tmpQuery.replaceAll('~\d', '');
     return tmpQuery;
 }
